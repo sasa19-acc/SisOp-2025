@@ -13,126 +13,75 @@ Dosen Pembimbing: Dr Ferry Astika Saputra ST, M.Sc
 
 
 ```plaintext
-+--------------------------------------------------+
-|            Power On (Komputer Dinyalakan)        |
-+--------------------------------------------------+
-                          |
-                          v
-+--------------------------------------------------+
-|   CPU membaca BIOS/UEFI dari ROM di Motherboard  |
-+--------------------------------------------------+
-                          |
-                          v
-+--------------------------------------------------+
-|      Jalankan BIOS/UEFI & Lakukan POST           |
-|   (Power-On Self Test untuk cek hardware)        |
-+--------------------------------------------------+
-                          |
-                          v
-+--------------------------------------------------+
-|         Apakah terjadi Hardware Error?         |
-+--------------------------------------------------+
-          /                      \
-         / Yes                   \ No
-        v                          v
-+-----------------------+    +--------------------------+
-| Tampilkan Error/Beep  |    |   Pindai Boot Device     |
-| Code (Error Handling) |    | (HDD/SSD/USB, dsb.)       |
-+-----------------------+    +--------------------------+
-                                       |
-                                       v
-                           +--------------------------+
-                           |  Boot Device Ditemukan?  |
-                           +--------------------------+
-                              /               \
-                             / Yes            \ No
-                            v                   v
-               +---------------------+  +-----------------------------+
-               | Load Bootloader     |  | Tampilkan Error:            |
-               | (MBR/GPT)           |  | "No Boot Device/Failure"    |
-               +---------------------+  +-----------------------------+
-                            |
-                            v
-               +---------------------+
-               | Bootloader Dieksekusi|
-               +---------------------+
-                            |
-                            v
-               +---------------------+
-               |  Multi-Boot Menu?   |
-               | (Pilihan OS tersedia?) |
-               +---------------------+
-                    /           \
-                   / Yes         \ No
-                  v               v
-         +----------------+  +----------------------+
-         | User Pilih OS  |  |   OS Default         |
-         +----------------+  +----------------------+
-                  \               /
-                   \             /
-                    v           v
-               +---------------------+
-               | Load Kernel ke RAM  |
-               +---------------------+
-                          |
-                          v
-               +-------------------------------+
-               | Kernel Inisialisasi:          |
-               | - Struktur Data & Memori      |
-               +-------------------------------+
-                          |
-                          v
-               +-------------------------------+
-               | Load & Inisialisasi Driver    |
-               | (Hardware Drivers)            |
-               +-------------------------------+
-                          |
-                          v
-               +-------------------------------+
-               | Mount Root Filesystem         |
-               +-------------------------------+
-                          |
-                          v
-               +-------------------------------+
-               | Spawn Proses init             |
-               | (systemd, init, dsb.)         |
-               +-------------------------------+
-                          |
-                          v
-               +-------------------------------+
-               | Jalankan Layanan & Daemon     |
-               +-------------------------------+
-                          |
-                          v
-               +-------------------------------+
-               | Tampilkan Login Screen        |
-               | (Display Manager / CLI)       |
-               +-------------------------------+
-                          |
-                          v
-               +-------------------------------+
-               |        User Login             |
-               +-------------------------------+
-                          |
-                          v
-               +-------------------------------+
-               |  Load User Environment/       |
-               |  Desktop (GUI atau Shell)     |
-               +-------------------------------+
-                          |
-                          v
-               +-------------------------------+
-               |     Sistem Siap Digunakan     |
-               +-------------------------------+
+┌──────────────────────────────┐
+│        Start System          │
+└─────────────┬────────────────┘
+              │
+              v
+┌──────────────────────────────┐      ┌──────────────────────────────┐
+│   Load Firmware (BIOS/UEFI)  │ ---> │   Deteksi & Inisialisasi HW  │
+└─────────────┬────────────────┘      └─────────────┬────────────────┘
+              │                                      │
+              v                                      v
+┌──────────────────────────────┐      ┌──────────────────────────────┐
+│   Pilih Boot Device (Disk,   │ ---> │  Load Bootloader (mis. GRUB) │
+│   Network, dsb.)             │      └─────────────┬────────────────┘
+└─────────────┬────────────────┘                    │
+              │                                      v
+              v                         ┌──────────────────────────────┐
+┌──────────────────────────────┐        │  Bootloader Pilih Kernel     │
+│  Jika UEFI, akses EFI System │  ----> │  & Muat Kernel ke Memori     │
+│  Partition (ESP)             │        └─────────────┬────────────────┘
+└─────────────┬────────────────┘                      │
+              │                                      v
+              v                         ┌──────────────────────────────┐
+┌──────────────────────────────┐        │ Kernel Inisialisasi (driver, │
+│   Muat Kernel & Struktur     │ <------│ memori, dsb.)                │
+│   Dasar Sistem               │        └─────────────┬────────────────┘
+└─────────────┬────────────────┘                      │
+              │                                      v
+              v                         ┌──────────────────────────────┐
+┌──────────────────────────────┐        │   Jalankan init/systemd      │
+│  Kernel Menjalankan PID 1    │ <------│   (proses pertama)           │
+│  (init/systemd)              │        └─────────────┬────────────────┘
+└─────────────┬────────────────┘                      │
+              │                                      v
+              v                         ┌──────────────────────────────┐
+┌──────────────────────────────┐        │   Eksekusi Skrip & Service   │
+│  Sistem Memulai Berkas-Berkas│ <------│   Startup                    │
+│  Startup                     │        └─────────────┬────────────────┘
+└─────────────┬────────────────┘                      │
+              │                                      v
+              v                         ┌──────────────────────────────┐
+┌──────────────────────────────┐        │    Sistem Siap Digunakan     │
+│     Sistem Berjalan (Login,  │ <------│    (Multi-user Mode)         │
+│     Service Aktif, dsb.)     │        └──────────────────────────────┘
+└──────────────────────────────┘
+
 ```
 **Penjelasan :**
-1.	Power On: Komputer dinyalakan, lalu CPU membaca instruksi awal dari BIOS/UEFI.
-2.	POST: Sistem menjalankan Power-On Self Test untuk memeriksa kondisi hardware. Jika ada error, error atau beep code ditampilkan.
-3.	Boot Device: Jika POST sukses, BIOS/UEFI memindai perangkat boot (HDD/SSD/USB). Jika tidak ada boot device, muncul pesan error.
-4.	Bootloader: Jika boot device ditemukan, bootloader (misalnya MBR/GPT) dimuat dan dieksekusi. Jika ada menu multi-boot, user dapat memilih OS, jika tidak, OS default dipilih.
-5.	Kernel & Inisialisasi: Kernel dimuat ke RAM, menginisialisasi memori, struktur data, dan driver perangkat keras. Root filesystem dipasang.
-6.	Proses init & Layanan: Proses init (seperti systemd) dijalankan untuk memulai layanan sistem dan daemon.
-7.	Login & User Environment: Display manager atau login prompt muncul, setelah login berhasil, user environment (desktop atau shell) dimuat, sehingga komputer siap digunakan.
+Penjelasan :
+1.	Start System
+Proses dimulai ketika daya komputer diaktifkan.
+2.	Load Firmware (BIOS/UEFI)
+Firmware dibaca dari NVRAM, lalu inisialisasi dasar dimulai.
+3.	Deteksi & Inisialisasi Hardware
+Firmware mengenali perangkat keras, seperti CPU, RAM, dan disk.
+4.	Pilih Boot Device
+Menentukan sumber boot (disk, jaringan, USB, dsb.). Jika UEFI, sistem juga mengakses EFI System Partition (ESP).
+5.	Load Bootloader
+Bootloader (misalnya GRUB) diambil dari perangkat/partisi yang telah ditentukan.
+6.	Bootloader Pilih Kernel & Muat Kernel ke Memori
+Bootloader menampilkan menu atau otomatis memilih kernel tertentu, lalu memuatnya.
+7.	Kernel Inisialisasi
+Kernel melakukan konfigurasi driver, manajemen memori, dan menyiapkan struktur internal.
+8.	Jalankan init/systemd (PID 1)
+Kernel meluncurkan proses utama (init/systemd) sebagai induk semua proses di user space.
+9.	Eksekusi Skrip & Service Startup
+init/systemd memuat berbagai layanan, daemon, dan konfigurasi startup.
+10.	Sistem Berjalan
+Setelah semua layanan aktif, sistem siap digunakan untuk login atau menjalankan aplikasi.
+
 
 
 
