@@ -11,56 +11,11 @@ Dosen Pembimbing: Dr Ferry Astika Saputra ST, M.Sc
 **TAHUN PELAJARAN 2024/2025**
 
 
+![flowchart-Siti Romzatul Allimah](https://github.com/user-attachments/assets/510b522b-9aa3-4543-aa91-82d4054fdd4d)
 
-```plaintext
-┌──────────────────────────────┐
-│        Start System          │
-└─────────────┬────────────────┘
-              │
-              v
-┌──────────────────────────────┐      ┌──────────────────────────────┐
-│   Load Firmware (BIOS/UEFI)  │ ---> │   Deteksi & Inisialisasi HW  │
-└─────────────┬────────────────┘      └─────────────┬────────────────┘
-              │                                      │
-              v                                      v
-┌──────────────────────────────┐      ┌──────────────────────────────┐
-│   Pilih Boot Device (Disk,   │ ---> │  Load Bootloader (mis. GRUB) │
-│   Network, dsb.)             │      └─────────────┬────────────────┘
-└─────────────┬────────────────┘                    │
-              │                                      v
-              v                         ┌──────────────────────────────┐
-┌──────────────────────────────┐        │  Bootloader Pilih Kernel     │
-│  Jika UEFI, akses EFI System │  ----> │  & Muat Kernel ke Memori     │
-│  Partition (ESP)             │        └─────────────┬────────────────┘
-└─────────────┬────────────────┘                      │
-              │                                      v
-              v                         ┌──────────────────────────────┐
-┌──────────────────────────────┐        │ Kernel Inisialisasi (driver, │
-│   Muat Kernel & Struktur     │ <------│ memori, dsb.)                │
-│   Dasar Sistem               │        └─────────────┬────────────────┘
-└─────────────┬────────────────┘                      │
-              │                                      v
-              v                         ┌──────────────────────────────┐
-┌──────────────────────────────┐        │   Jalankan init/systemd      │
-│  Kernel Menjalankan PID 1    │ <------│   (proses pertama)           │
-│  (init/systemd)              │        └─────────────┬────────────────┘
-└─────────────┬────────────────┘                      │
-              │                                      v
-              v                         ┌──────────────────────────────┐
-┌──────────────────────────────┐        │   Eksekusi Skrip & Service   │
-│  Sistem Memulai Berkas-Berkas│ <------│   Startup                    │
-│  Startup                     │        └─────────────┬────────────────┘
-└─────────────┬────────────────┘                      │
-              │                                      v
-              v                         ┌──────────────────────────────┐
-┌──────────────────────────────┐        │    Sistem Siap Digunakan     │
-│     Sistem Berjalan (Login,  │ <------│    (Multi-user Mode)         │
-│     Service Aktif, dsb.)     │        └──────────────────────────────┘
-└──────────────────────────────┘
 
-```
 **Penjelasan :**
-Penjelasan :
+
 1.	Start System
 Proses dimulai ketika daya komputer diaktifkan.
 2.	Load Firmware (BIOS/UEFI)
