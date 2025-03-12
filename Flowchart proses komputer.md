@@ -10,55 +10,10 @@ Dosen Pembimbing: Dr Ferry Astika Saputra ST, M.Sc
 **POLITEKNIK ELEKTRONIKA NEGERI SURABAYA**  
 **TAHUN PELAJARAN 2024/2025**
 
+![flowchart-Siti Romzatul Allimah](https://github.com/user-attachments/assets/e3e7bff8-6eda-4644-aa62-45475f9114ec)
 
 
-```plaintext
-┌──────────────────────────────┐
-│        Start System          │
-└─────────────┬────────────────┘
-              │
-              v
-┌──────────────────────────────┐      ┌──────────────────────────────┐
-│   Load Firmware (BIOS/UEFI)  │ ---> │   Deteksi & Inisialisasi HW  │
-└─────────────┬────────────────┘      └─────────────┬────────────────┘
-              │                                      │
-              v                                      v
-┌──────────────────────────────┐      ┌──────────────────────────────┐
-│   Pilih Boot Device (Disk,   │ ---> │  Load Bootloader (mis. GRUB) │
-│   Network, dsb.)             │      └─────────────┬────────────────┘
-└─────────────┬────────────────┘                    │
-              │                                      v
-              v                         ┌──────────────────────────────┐
-┌──────────────────────────────┐        │  Bootloader Pilih Kernel     │
-│  Jika UEFI, akses EFI System │  ----> │  & Muat Kernel ke Memori     │
-│  Partition (ESP)             │        └─────────────┬────────────────┘
-└─────────────┬────────────────┘                      │
-              │                                      v
-              v                         ┌──────────────────────────────┐
-┌──────────────────────────────┐        │ Kernel Inisialisasi (driver, │
-│   Muat Kernel & Struktur     │ <------│ memori, dsb.)                │
-│   Dasar Sistem               │        └─────────────┬────────────────┘
-└─────────────┬────────────────┘                      │
-              │                                      v
-              v                         ┌──────────────────────────────┐
-┌──────────────────────────────┐        │   Jalankan init/systemd      │
-│  Kernel Menjalankan PID 1    │ <------│   (proses pertama)           │
-│  (init/systemd)              │        └─────────────┬────────────────┘
-└─────────────┬────────────────┘                      │
-              │                                      v
-              v                         ┌──────────────────────────────┐
-┌──────────────────────────────┐        │   Eksekusi Skrip & Service   │
-│  Sistem Memulai Berkas-Berkas│ <------│   Startup                    │
-│  Startup                     │        └─────────────┬────────────────┘
-└─────────────┬────────────────┘                      │
-              │                                      v
-              v                         ┌──────────────────────────────┐
-┌──────────────────────────────┐        │    Sistem Siap Digunakan     │
-│     Sistem Berjalan (Login,  │ <------│    (Multi-user Mode)         │
-│     Service Aktif, dsb.)     │        └──────────────────────────────┘
-└──────────────────────────────┘
 
-```
 **Penjelasan :**
 Penjelasan :
 1.	Start System
