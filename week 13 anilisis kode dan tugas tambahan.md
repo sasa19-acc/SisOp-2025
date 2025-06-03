@@ -319,3 +319,121 @@ Namun, ada beberapa aspek yang bisa diperbaiki, seperti validasi input dan perhi
 
 
 ---
+
+
+# Tugas Tambahan Analisis Penjadwalan CPU
+
+## Soal 5.4: SJF Non-Preemptive
+
+### Data Proses
+| Proses | Burst Time | Prioritas |
+|--------|------------|-----------|
+| P₁     | 2          | 2         |
+| P₂     | 1          | 1         |
+| P₃     | 8          | 4         |
+| P₄     | 4          | 2         |
+| P₅     | 5          | 3         |
+
+### Gantt Chart
+```
+0     1     3     7     12    20
+| P₂ | P₁ | P₄ | P₅ | P₃ |
+```
+
+### Analisis Alur
+1. **Inisialisasi**:
+   - Urutkan proses berdasarkan burst time terpendek: P₂(1), P₁(2), P₄(4), P₅(5), P₃(8)
+
+2. **Eksekusi**:
+   - Waktu 0-1: Jalankan P₂ (burst 1)
+   - Waktu 1-3: Jalankan P₁ (burst 2)
+   - Waktu 3-7: Jalankan P₄ (burst 4)
+   - Waktu 7-12: Jalankan P₅ (burst 5)
+   - Waktu 12-20: Jalankan P₃ (burst 8)
+
+3. **Metrik**:
+   - Turnaround Time: 
+     - P₂: 1, P₁: 3, P₄: 7, P₅: 12, P₃: 20
+   - Waiting Time:
+     - P₂: 0, P₁: 1, P₄: 3, P₅: 7, P₃: 12
+   - Rata-rata Waiting Time: **4.6 ms**
+
+---
+
+## Soal 5.3: SJF Non-Preemptive
+
+### Data Proses
+| Proses | Burst Time |
+|--------|------------|
+| P₁     | 8          |
+| P₂     | 4          |
+| P₃     | 1          |
+
+### Gantt Chart
+```
+0     1     5     13
+| P₃ | P₂ | P₁ |
+```
+
+### Analisis Alur
+1. **Inisialisasi**:
+   - Urutkan proses: P₃(1), P₂(4), P₁(8)
+
+2. **Eksekusi**:
+   - Waktu 0-1: Jalankan P₃
+   - Waktu 1-5: Jalankan P₂
+   - Waktu 5-13: Jalankan P₁
+
+3. **Metrik**:
+   - Turnaround Time: P₃: 1, P₂: 5, P₁: 13
+   - Waiting Time: P₃: 0, P₂: 1, P₁: 5
+   - Rata-rata Waiting Time: **2 ms**
+
+---
+
+## Soal 5.5: Round Robin (Quantum = 10)
+
+### Data Proses
+| Proses | Prioritas | Burst | Arrival |
+|--------|-----------|-------|---------|
+| P₁     | 8         | 15    | 0       |
+| P₂     | 3         | 20    | 0       |
+| P₃     | 4         | 20    | 20      |
+| P₄     | 4         | 20    | 25      |
+| P₅     | 5         | 5     | 45      |
+| P₆     | 5         | 15    | 55      |
+
+### Gantt Chart
+```
+0     10    15    25    35    45    50    55    65    85    95    100
+| P₁ | P₁ | P₃ | P₄ | P₅ | P₅ | P₆ | P₆ | P₂ | P₂ | P₂ |
+```
+
+### Analisis Alur
+1. **Inisialisasi**:
+   - Prioritas tinggi (P₁) dijalankan pertama
+   - Quantum = 10, preemptive jika ada proses lain
+
+2. **Eksekusi**:
+   - 0–10: P₁ (sisa burst = 5)
+   - 10–15: P₁ selesai
+   - 15–25: P₃
+   - 25–35: P₄
+   - 45–50: P₅
+   - 55–65: P₆
+   - 65–100: P₂
+
+3. **Metrik**:
+   - Turnaround Time: P₁: 15, P₂: 100, P₃: 5, P₄: 10, P₅: 5, P₆: 40
+   - Waiting Time: P₁: 0, P₂: 80, P₃: 5, P₄: 10, P₅: 0, P₆: 25
+   - CPU Utilization: **95%**
+
+---
+
+## Kesimpulan
+
+| Algoritma       | Avg Waiting Time | Kelebihan                     | Kekurangan                    |
+|-----------------|------------------|-------------------------------|-------------------------------|
+| SJF 5.4         | 4.6 ms           | Optimal untuk proses pendek   | Starvation proses panjang     |
+| SJF 5.3         | 2 ms             | Waiting time minimal          | Hanya untuk burst time seragam|
+| Priority RR 5.5 | 15.83 ms         | Adil untuk prioritas sama     | Starvation prioritas rendah   |
