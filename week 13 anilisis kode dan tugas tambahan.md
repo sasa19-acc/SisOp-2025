@@ -86,7 +86,72 @@ Kode ini mengimplementasikan algoritma Shortest Job First (SJF) tanpa mempertimb
 |-----|---------------|----------------|------------------|
 0     3               9                16                 24
 
+Penjelasan Langkah demi Langkah:
+Urutkan proses berdasarkan burst time terpendek:
 
+P2 (4), P4 (5), P1 (8), P3 (9)
+
+Time 0: Jalankan P2 (BT terpendek)
+
+Selesai pada time 4
+
+Time 4: Jalankan P4 (BT terpendek berikutnya)
+
+Selesai pada time 9
+
+Time 9: Jalankan P1
+
+Selesai pada time 17
+
+Time 17: Jalankan P3
+
+Selesai pada time 26
+
+Perhitungan untuk Setiap Proses:
+P2:
+
+CT = 4
+
+TAT = 4 - 0 = 4
+
+WT = 4 - 4 = 0
+
+RT = 0 (Response Time)
+
+P4:
+
+CT = 9
+
+TAT = 9 - 0 = 9
+
+WT = 9 - 5 = 4
+
+RT = 4
+
+P1:
+
+CT = 17
+
+TAT = 17 - 0 = 17
+
+WT = 17 - 8 = 9
+
+RT = 9
+
+P3:
+
+CT = 26
+
+TAT = 26 - 0 = 26
+
+WT = 26 - 9 = 17
+
+RT = 17
+
+Rata-rata:
+Avg TAT = (4 + 9 + 17 + 26)/4 = 56/4 = 14.0
+
+Avg WT = (0 + 4 + 9 + 17)/4 = 30/4 = 7.5
 
 
 
@@ -209,7 +274,80 @@ Output:
 |-------|-------|-------|------------|
 0       8      12      17           26
 
+Penjelasan Langkah demi Langkah:
+Time 0: Hanya P1 yang tersedia → Jalankan P1 (meskipun BT lebih panjang, karena ini proses pertama)
 
+P1 selesai pada time 8
+
+Time 8: Proses yang sudah datang:
+
+P2 (BT=4, datang di time 1)
+
+P3 (BT=9, datang di time 2)
+
+P4 (BT=5, datang di time 3)
+
+Pilih yang memiliki BT terpendek → P2 (BT=4)
+
+P2 selesai pada time 12
+
+Time 12: Proses yang tersisa:
+
+P3 (BT=9)
+
+P4 (BT=5) → Lebih pendek → Jalankan P4
+
+P4 selesai pada time 17
+
+Time 17: Hanya P3 tersisa → Jalankan P3
+
+P3 selesai pada time 26
+
+Perhitungan untuk Setiap Proses:
+P1:
+
+CT = 8
+
+TAT = CT - AT = 8 - 0 = 8
+
+WT = TAT - BT = 8 - 8 = 0
+
+RT = WT = 0 (Response Time)
+
+P2:
+
+CT = 12
+
+TAT = 12 - 1 = 11
+
+WT = 11 - 4 = 7
+
+RT = WT = 7
+
+P4:
+
+CT = 17
+
+TAT = 17 - 3 = 14
+
+WT = 14 - 5 = 9
+
+RT = WT = 9
+
+P3:
+
+CT = 26
+
+TAT = 26 - 2 = 24
+
+WT = 24 - 9 = 15
+
+RT = WT = 15
+
+Rata-rata:
+Avg TAT = (8 + 11 + 14 + 24)/4 = 57/4 = 14.25
+
+Avg WT = (0 + 7 + 9 + 15)/4 = 31/4 = 7.75
 
 ---
 
