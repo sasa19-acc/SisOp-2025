@@ -356,7 +356,7 @@ Namun, ada beberapa aspek yang bisa diperbaiki, seperti validasi input dan perhi
      - P₂: 1, P₁: 3, P₄: 7, P₅: 12, P₃: 20
    - Waiting Time:
      - P₂: 0, P₁: 1, P₄: 3, P₅: 7, P₃: 12
-   - Rata-rata Waiting Time: **4.6 ms**
+   - Rata-rata Waiting Time: (0 + 1 + 3 + 7 + 12) / 5 = **4.6 ms**
 
 ---
 
@@ -387,7 +387,7 @@ Namun, ada beberapa aspek yang bisa diperbaiki, seperti validasi input dan perhi
 3. **Metrik**:
    - Turnaround Time: P₃: 1, P₂: 5, P₁: 13
    - Waiting Time: P₃: 0, P₂: 1, P₁: 5
-   - Rata-rata Waiting Time: **2 ms**
+   - Rata-rata Waiting Time: (0 + 1 + 5) / 3 = **2 ms**
 
 ---
 
@@ -426,7 +426,7 @@ Namun, ada beberapa aspek yang bisa diperbaiki, seperti validasi input dan perhi
 3. **Metrik**:
    - Turnaround Time: P₁: 15, P₂: 100, P₃: 5, P₄: 10, P₅: 5, P₆: 40
    - Waiting Time: P₁: 0, P₂: 80, P₃: 5, P₄: 10, P₅: 0, P₆: 25
-   - CPU Utilization: **95%**
+   - CPU Utilization: (100 - 5) / 100 * 100% = **95%**
 
 ---
 
