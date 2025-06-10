@@ -325,8 +325,72 @@ Namun, ada beberapa aspek yang bisa diperbaiki, seperti validasi input dan perhi
 
 
 ---
+Penjelasan Langkah demi Langkah:
+Time 0: Hanya P1 yang tersedia → Jalankan P1
 
+Time 1: P2 datang (BT=4) < sisa P1 (7) → Preempt P1, jalankan P2
 
+Time 2: P3 datang (BT=9) > sisa P2 (3) → Lanjutkan P2
+
+Time 3: P4 datang (BT=5) < sisa P2 (2) → Lanjutkan P2 (karena sisa P2 lebih pendek)
+
+Time 4: P2 selesai. Bandingkan sisa waktu:
+
+P1: 7
+
+P3: 9
+
+P4: 5 → Paling pendek → Jalankan P4
+
+Time 5: P4 memiliki sisa 4, P1 sisa 7, P3 sisa 9 → Lanjutkan P4
+
+Time 8: P4 selesai. Bandingkan sisa:
+
+P1: 7
+
+P3: 9 → P1 lebih pendek → Jalankan P1
+
+Time 16: P1 selesai. Hanya P3 tersisa → Jalankan P3
+
+Time 25: P3 selesai
+
+Perhitungan untuk Setiap Proses:
+P1:
+
+CT = 16
+
+TAT = CT - AT = 16 - 0 = 16
+
+WT = TAT - BT = 16 - 8 = 8
+
+P2:
+
+CT = 4
+
+TAT = 4 - 1 = 3
+
+WT = 3 - 4 = -1 (diperlakukan sebagai 0, tidak mungkin negatif)
+
+P4:
+
+CT = 8
+
+TAT = 8 - 3 = 5
+
+WT = 5 - 5 = 0
+
+P3:
+
+CT = 25
+
+TAT = 25 - 2 = 23
+
+WT = 23 - 9 = 14
+
+Rata-rata:
+Avg TAT = (16 + 3 + 5 + 23)/4 = 47/4 = 11.75
+
+---
 # Tugas Tambahan Analisis Penjadwalan CPU
 
 ## Soal 5.4: SJF Non-Preemptive
