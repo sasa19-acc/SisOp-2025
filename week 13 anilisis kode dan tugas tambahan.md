@@ -2,53 +2,7 @@
 ## Sjf Scheduling Algorithm Without Arrival Time (Non-Preemptive)
 *SJF (Shortest Job First) Non-Preemptive adalah algoritma penjadwalan CPU yang memilih proses dengan waktu eksekusi (burst time) paling pendek untuk dieksekusi berikutnya. Karena bersifat non-preemptive, proses yang sedang berjalan tidak akan diganggu hingga selesai, bahkan jika ada proses lain dengan waktu yang lebih pendek.*
 --
-
-#include<stdio.h>
-struct proc
-{
-    int no,bt,ct,tat,wt;
-};
-struct proc read(int i)
-{
-    struct proc p;
-    printf("\nProcess No: %d\n",i);
-    p.no=i;
-    printf("Enter Burst Time: ");
-    scanf("%d",&p.bt);
-    return p;
-}
-int main()
-{
-    struct proc p[10],tmp;
-    float avgtat=0,avgwt=0;
-    int n,ct=0;
-    printf("<--SJF Scheduling Algorithm Without Arrival Time (Non-Preemptive)-->\n");
-    printf("Enter Number of Processes: ");
-    scanf("%d",&n);
-    for(int i=0;i<n;i++)
-        p[i]=read(i+1);
-    for(int i=0;i<n-1;i++)
-        for(int j=0;j<n-i-1;j++)    
-            if(p[j].bt>p[j+1].bt)
-            {
-				tmp=p[j];
-				p[j]=p[j+1];
-				p[j+1]=tmp;
-            }
-    printf("\nProcessNo\tBT\tCT\tTAT\tWT\tRT\n");
-    for(int i=0;i<n;i++)
-    {
-        ct+=p[i].bt;
-		p[i].ct=p[i].tat=ct;
-		avgtat+=p[i].tat;
-        p[i].wt=p[i].tat-p[i].bt;
-        avgwt+=p[i].wt;
-        printf("P%d\t\t%d\t%d\t%d\t%d\t%d\n",p[i].no,p[i].bt,p[i].ct,p[i].tat,p[i].wt,p[i].wt);
-    }
-    avgtat/=n,avgwt/=n;
-    printf("\nAverage TurnAroundTime=%f\nAverage WaitingTime=%f",avgtat,avgwt);
-}
-
+kode program : https://github.com/ferryastika/Scheduling-Algorithms/blob/master/SJF%20Scheduling%20Algorithm%20Without%20Arrival%20Time.c
 ---
 Analisis Kode:
 1. Struktur Data
@@ -144,6 +98,8 @@ Kode ini mengimplementasikan algoritma Shortest Job First (SJF) tanpa mempertimb
 *SJF (Shortest Job First) adalah algoritma penjadwalan yang memilih proses dengan burst time terpendek di antara semua proses yang sudah tiba (arrival time ≤ waktu saat ini).
 Dalam versi non-preemptive, jika sebuah proses sedang berjalan, ia tidak akan dihentikan sampai selesai—meskipun ada proses baru dengan burst time lebih pendek yang datang kemudian.*
 --
+kode program : https://github.com/ferryastika/Scheduling-Algorithms/blob/master/SJF%20Scheduling%20Algorithm.c
+---
 Analisis Kode:
 1. Struktur Data
 **struct proc {
@@ -262,6 +218,8 @@ Output:
 *SRTF adalah versi preemptive dari algoritma SJF (Shortest Job First). Pada algoritma ini, CPU selalu memilih proses dengan sisa burst time paling pendek di antara semua proses yang sudah tiba (arrival time ≤ waktu saat ini).
 Jika ada proses baru yang masuk dan memiliki burst time lebih kecil dari proses yang sedang berjalan, maka proses yang sedang berjalan akan dihentikan sementara (preempted) dan digantikan oleh proses baru tersebut.*
 --
+kode program : https://github.com/ferryastika/Scheduling-Algorithms/blob/master/SRTF%20Scheduling%20Algorithm.c
+---
 Analisis Kode:
 1. Struktur Data
 struct proc {
